@@ -74,7 +74,7 @@ export async function getUsageBreakdown(inviteId: string): Promise<PersonaUsageB
     FROM usage_log
     WHERE invite_id = ${inviteId}::uuid
     GROUP BY persona_slug
-    ORDER BY total_input + total_output DESC
+    ORDER BY SUM(input_tokens) + SUM(output_tokens) DESC
   `;
   return rows;
 }
