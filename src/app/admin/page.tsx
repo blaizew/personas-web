@@ -99,7 +99,7 @@ export default function AdminPage() {
       <main className="max-w-4xl mx-auto px-6 py-8 space-y-8">
         {/* Stats */}
         {stats && (
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4">
               <p className="text-xs text-[var(--text-secondary)] mb-1">Total Tokens</p>
               <p className="text-2xl font-bold text-[var(--text-primary)]">{formatTokens(stats.total_tokens)}</p>

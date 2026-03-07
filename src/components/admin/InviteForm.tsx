@@ -20,22 +20,31 @@ export function InviteForm({ onCreated }: InviteFormProps) {
   const [tokenBudget, setTokenBudget] = useState(500_000);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [inviteUrl, setInviteUrl] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!userName.trim()) return;
 
     setIsSubmitting(true);
+    setError('');
     try {
       const res = await fetch('/api/admin/invites', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userName: userName.trim(), tokenBudget }),
       });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || `Failed to create invite (${res.status})`);
+        return;
+      }
       const data = await res.json();
       setInviteUrl(data.inviteUrl);
       setUserName('');
       onCreated();
+    } catch {
+      setError('Network error. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -79,6 +88,8 @@ export function InviteForm({ onCreated }: InviteFormProps) {
             min={1}
           />
         </div>
+
+        {error && <p className="text-red-400 text-sm">{error}</p>}
 
         <Button type="submit" disabled={isSubmitting || !userName.trim()}>
           {isSubmitting ? 'Creating...' : 'Create Invite'}

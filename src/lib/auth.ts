@@ -1,9 +1,10 @@
 import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 import { getInviteByToken } from './db';
 import type { InviteLink } from '@/types';
 
-const INVITE_COOKIE = 'invite_token';
-const ADMIN_COOKIE = 'admin_session';
+export const INVITE_COOKIE = 'invite_token';
+export const ADMIN_COOKIE = 'admin_session';
 
 export async function validateInviteToken(token: string): Promise<InviteLink | null> {
   return getInviteByToken(token);
@@ -16,30 +17,28 @@ export async function getSessionInvite(): Promise<InviteLink | null> {
   return getInviteByToken(token);
 }
 
-export async function setInviteCookie(token: string): Promise<void> {
-  const cookieStore = await cookies();
-  cookieStore.set(INVITE_COOKIE, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    path: '/',
-    // No maxAge = session cookie (cleared on browser close)
-  });
-}
-
 export async function validateAdminSession(): Promise<boolean> {
   const cookieStore = await cookies();
   return cookieStore.get(ADMIN_COOKIE)?.value === 'authenticated';
 }
 
-export async function setAdminCookie(): Promise<void> {
-  const cookieStore = await cookies();
-  cookieStore.set(ADMIN_COOKIE, 'authenticated', {
+export function setAdminCookieOnResponse(response: NextResponse): void {
+  response.cookies.set(ADMIN_COOKIE, 'authenticated', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    path: '/admin',
+    path: '/',
     maxAge: 60 * 60 * 24, // 24 hours
+  });
+}
+
+export function setInviteCookieOnResponse(response: NextResponse, token: string): void {
+  response.cookies.set(INVITE_COOKIE, token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    // No maxAge = session cookie (cleared on browser close)
   });
 }
 

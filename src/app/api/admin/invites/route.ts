@@ -1,11 +1,12 @@
 import { randomBytes } from 'crypto';
+import { NextResponse } from 'next/server';
 import { validateAdminSession } from '@/lib/auth';
 import { getAllInvites, createInvite, deactivateInvite, getUsageBreakdown } from '@/lib/db';
 
 export async function GET() {
   const isAdmin = await validateAdminSession();
   if (!isAdmin) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const invites = await getAllInvites();
@@ -18,19 +19,19 @@ export async function GET() {
     })
   );
 
-  return Response.json(invitesWithBreakdown);
+  return NextResponse.json(invitesWithBreakdown);
 }
 
 export async function POST(request: Request) {
   const isAdmin = await validateAdminSession();
   if (!isAdmin) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const { userName, tokenBudget } = await request.json();
 
   if (!userName || !tokenBudget || tokenBudget < 1) {
-    return Response.json({ error: 'Invalid input' }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
   }
 
   const token = randomBytes(32).toString('hex');
@@ -39,16 +40,16 @@ export async function POST(request: Request) {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
   const inviteUrl = `${appUrl}?token=${token}`;
 
-  return Response.json({ invite, inviteUrl });
+  return NextResponse.json({ invite, inviteUrl });
 }
 
 export async function DELETE(request: Request) {
   const isAdmin = await validateAdminSession();
   if (!isAdmin) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const { id } = await request.json();
   await deactivateInvite(id);
-  return Response.json({ success: true });
+  return NextResponse.json({ success: true });
 }
