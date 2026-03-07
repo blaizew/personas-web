@@ -1,0 +1,25 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+import type { Persona } from '@/types';
+import { PersonaCard } from './PersonaCard';
+
+interface PersonaGridProps {
+  personas: Persona[];
+}
+
+export function PersonaGrid({ personas }: PersonaGridProps) {
+  const router = useRouter();
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {personas.map((persona) => (
+        <PersonaCard
+          key={persona.slug}
+          persona={persona}
+          onClick={() => router.push(`/chat/${persona.slug}`)}
+        />
+      ))}
+    </div>
+  );
+}
