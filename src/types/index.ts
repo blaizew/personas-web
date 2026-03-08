@@ -3,6 +3,7 @@ export interface Persona {
   name: string;
   domain: string;
   description: string;
+  portrait?: string;
   modules: string[];
 }
 

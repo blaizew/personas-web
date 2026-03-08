@@ -10,6 +10,7 @@ export const personas: Persona[] = [
     name: 'Jeff Bezos',
     domain: 'Business, strategy, leadership',
     description: 'Think big, start small, scale fast. Day 1 mentality and long-term thinking.',
+    portrait: '/portraits/jeff-bezos.webp',
     modules: [
       '01-starting-a-company.md', '02-making-hard-decisions.md', '03-building-and-scaling.md',
       '04-building-teams.md', '05-dealing-with-failure.md', '06-career-decisions.md',
@@ -25,6 +26,7 @@ export const personas: Persona[] = [
     name: 'Jeff Bezos (Conversational)',
     domain: 'Business, strategy, leadership',
     description: 'Same Bezos wisdom, more casual and conversational tone.',
+    portrait: '/portraits/jeff-bezos-conversational.webp',
     modules: [
       '01-starting-a-company.md', '02-making-hard-decisions.md', '03-building-and-scaling.md',
       '04-building-teams.md', '05-dealing-with-failure.md', '06-career-decisions.md',
@@ -40,6 +42,7 @@ export const personas: Persona[] = [
     name: 'Esther Perel',
     domain: 'Relationships, desire, relational therapy',
     description: 'Navigate love, desire, and the complexity of modern relationships.',
+    portrait: '/portraits/esther-perel.webp',
     modules: [
       'module-01-reigniting-desire.md', 'module-02-security-freedom.md', 'module-03-breaking-fight-cycles.md',
       'module-04-rebuilding-trust.md', 'module-05-recovering-from-infidelity.md', 'module-06-modern-dating.md',
@@ -55,6 +58,7 @@ export const personas: Persona[] = [
     name: 'Paul Graham',
     domain: 'Startups, technology, life design',
     description: 'Startup wisdom from the founder of Y Combinator. Think independently.',
+    portrait: '/portraits/paul-graham.webp',
     modules: [
       '01-finding-startup-ideas.md', '02-building-product-early.md', '03-growing-startup.md',
       '04-surviving-not-dying.md', '05-raising-money.md', '06-competing-positioning.md',
@@ -71,6 +75,7 @@ export const personas: Persona[] = [
     name: 'Matt Mochary',
     domain: 'CEO coaching, conscious leadership',
     description: 'The CEO coach. Energy audit, fear processing, radical transparency.',
+    portrait: '/portraits/matt-mochary.webp',
     modules: [
       '01-fear-and-anger.md', '02-energy-and-burnout.md', '03-personal-productivity.md',
       '04-effective-meetings.md', '05-difficult-conversations.md', '06-decision-making.md',
@@ -86,6 +91,7 @@ export const personas: Persona[] = [
     name: 'Chris Camillo',
     domain: 'Investing, trading, wealth building',
     description: 'Social arbitrage investing. Spot trends before Wall Street.',
+    portrait: '/portraits/chris-camillo.webp',
     modules: [
       '01-spotting-your-first-investment-idea.md', '02-deciding-if-a-trend-is-tradable.md',
       '03-knowing-when-to-enter-and-exit.md', '04-competing-against-wall-street.md',
@@ -104,6 +110,7 @@ export const personas: Persona[] = [
     name: 'Stanley Druckenmiller',
     domain: 'Investing, macro strategy, market cycles',
     description: 'Macro legend. Position sizing, liquidity, and the art of cutting losses.',
+    portrait: '/portraits/stanley-druckenmiller.webp',
     modules: [
       '01-sizing-a-position.md', '02-deciding-when-to-enter.md', '03-cutting-losses.md',
       '04-reading-liquidity-and-the-fed.md', '05-managing-hot-cold-streaks.md',
@@ -121,6 +128,7 @@ export const personas: Persona[] = [
     name: 'Jerry Colonna',
     domain: 'Conscious leadership, founder psychology',
     description: 'The CEO whisperer. Radical self-inquiry, finding meaning in the struggle.',
+    portrait: '/portraits/jerry-colonna.webp',
     modules: [
       '01-radical-self-inquiry.md', '02-family-of-origin.md', '03-busyness-and-overwork.md',
       '04-sabbatical-rest.md', '05-suffering-and-crisis.md', '06-imposter-voice-self-worth.md',

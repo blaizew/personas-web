@@ -39,7 +39,7 @@ export function InviteTable({ invites, onDeactivate }: InviteTableProps) {
         return (
           <div
             key={invite.id}
-            className="bg-[var(--surface)] border border-[var(--border)] rounded-xl overflow-hidden"
+            className="bg-white border border-[var(--border)] rounded-xl overflow-hidden shadow-[var(--shadow-sm)]"
           >
             <div className="p-4">
               <div className="flex items-center justify-between mb-3">
@@ -48,10 +48,10 @@ export function InviteTable({ invites, onDeactivate }: InviteTableProps) {
                     {invite.user_name}
                   </span>
                   <span
-                    className={`text-xs px-2 py-0.5 rounded-full ${
+                    className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                       invite.is_active
-                        ? 'bg-green-500/10 text-green-400'
-                        : 'bg-red-500/10 text-red-400'
+                        ? 'bg-green-50 text-green-700'
+                        : 'bg-red-50 text-red-700'
                     }`}
                   >
                     {invite.is_active ? 'Active' : 'Inactive'}
@@ -82,7 +82,7 @@ export function InviteTable({ invites, onDeactivate }: InviteTableProps) {
 
               {/* Progress bar */}
               <div className="flex items-center gap-3 mb-2">
-                <div className="flex-1 h-2 bg-[var(--surface-elevated)] rounded-full overflow-hidden">
+                <div className="flex-1 h-2 bg-[var(--surface)] rounded-full overflow-hidden">
                   <div
                     className="h-full bg-[var(--accent)] rounded-full transition-all duration-300"
                     style={{ width: `${usagePercent}%` }}
@@ -110,7 +110,7 @@ export function InviteTable({ invites, onDeactivate }: InviteTableProps) {
 
             {/* Expanded breakdown */}
             {isExpanded && invite.breakdown.length > 0 && (
-              <div className="border-t border-[var(--border)] px-4 py-3 bg-[var(--surface-elevated)]">
+              <div className="border-t border-[var(--border)] px-4 py-3 bg-[var(--surface)]">
                 <table className="w-full text-xs">
                   <thead>
                     <tr className="text-[var(--text-secondary)]">

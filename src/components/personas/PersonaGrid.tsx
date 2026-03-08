@@ -12,11 +12,12 @@ export function PersonaGrid({ personas }: PersonaGridProps) {
   const router = useRouter();
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {personas.map((persona) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      {personas.map((persona, index) => (
         <PersonaCard
           key={persona.slug}
           persona={persona}
+          index={index}
           onClick={() => router.push(`/chat/${persona.slug}`)}
         />
       ))}

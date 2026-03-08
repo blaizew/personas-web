@@ -71,26 +71,30 @@ export default function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--surface)]">
         <form onSubmit={handleLogin} className="w-full max-w-sm px-4 space-y-4">
-          <h1 className="text-2xl font-bold text-[var(--text-primary)] text-center">Admin</h1>
-          <Input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            autoFocus
-          />
-          {loginError && <p className="text-red-400 text-sm text-center">{loginError}</p>}
-          <Button type="submit" className="w-full">Sign in</Button>
+          <div className="bg-white rounded-xl p-8 shadow-[var(--shadow-md)] border border-[var(--border)]">
+            <h1 className="text-2xl font-bold text-[var(--text-primary)] text-center mb-6">Admin</h1>
+            <div className="space-y-4">
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                autoFocus
+              />
+              {loginError && <p className="text-red-600 text-sm text-center">{loginError}</p>}
+              <Button type="submit" className="w-full">Sign in</Button>
+            </div>
+          </div>
         </form>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen">
-      <header className="border-b border-[var(--border)] px-6 py-4">
+    <div className="min-h-screen bg-[var(--surface)]">
+      <header className="border-b border-[var(--border)] bg-white px-6 py-4">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-lg font-semibold text-[var(--text-primary)]">Admin Dashboard</h1>
         </div>
@@ -100,15 +104,15 @@ export default function AdminPage() {
         {/* Stats */}
         {stats && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4">
+            <div className="bg-white border border-[var(--border)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
               <p className="text-xs text-[var(--text-secondary)] mb-1">Total Tokens</p>
               <p className="text-2xl font-bold text-[var(--text-primary)]">{formatTokens(stats.total_tokens)}</p>
             </div>
-            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4">
+            <div className="bg-white border border-[var(--border)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
               <p className="text-xs text-[var(--text-secondary)] mb-1">Active Invites</p>
               <p className="text-2xl font-bold text-[var(--text-primary)]">{stats.active_invites}</p>
             </div>
-            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4">
+            <div className="bg-white border border-[var(--border)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
               <p className="text-xs text-[var(--text-secondary)] mb-1">Est. API Cost</p>
               <p className="text-2xl font-bold text-[var(--text-primary)]">${stats.estimated_cost}</p>
             </div>

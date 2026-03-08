@@ -51,7 +51,7 @@ export function InviteForm({ onCreated }: InviteFormProps) {
   };
 
   return (
-    <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-6">
+    <div className="bg-white border border-[var(--border)] rounded-xl p-6 shadow-[var(--shadow-sm)]">
       <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Create Invite</h3>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -73,8 +73,8 @@ export function InviteForm({ onCreated }: InviteFormProps) {
                 onClick={() => setTokenBudget(preset.value)}
                 className={`px-3 py-1.5 text-xs rounded-lg border transition-colors ${
                   tokenBudget === preset.value
-                    ? 'border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--accent)]'
-                    : 'border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                    ? 'border-[var(--accent)] bg-[var(--accent-light)] text-[var(--accent)] font-medium'
+                    : 'border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--text-tertiary)]'
                 }`}
               >
                 {preset.label}
@@ -89,7 +89,7 @@ export function InviteForm({ onCreated }: InviteFormProps) {
           />
         </div>
 
-        {error && <p className="text-red-400 text-sm">{error}</p>}
+        {error && <p className="text-red-600 text-sm">{error}</p>}
 
         <Button type="submit" disabled={isSubmitting || !userName.trim()}>
           {isSubmitting ? 'Creating...' : 'Create Invite'}
@@ -97,7 +97,7 @@ export function InviteForm({ onCreated }: InviteFormProps) {
       </form>
 
       {inviteUrl && (
-        <div className="mt-4 p-3 bg-[var(--surface-elevated)] border border-[var(--border)] rounded-lg">
+        <div className="mt-4 p-3 bg-[var(--surface)] border border-[var(--border)] rounded-lg">
           <p className="text-xs text-[var(--text-secondary)] mb-1">Invite link created:</p>
           <div className="flex items-center gap-2">
             <code className="text-sm text-[var(--accent)] break-all flex-1">{inviteUrl}</code>
