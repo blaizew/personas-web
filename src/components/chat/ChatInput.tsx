@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useRef, useEffect, useState } from 'react';
+import { Send, Mic, MicOff } from 'lucide-react';
 import { VoiceRecorder, type VoiceState } from './VoiceRecorder';
 
 interface ChatInputProps {
@@ -9,16 +10,17 @@ interface ChatInputProps {
   onSubmit: (e: FormEvent) => void;
   isLoading: boolean;
   disabled?: boolean;
+  personaName?: string;
 }
 
-export function ChatInput({ input, setInput, onSubmit, isLoading, disabled }: ChatInputProps) {
+export function ChatInput({ input, setInput, onSubmit, isLoading, disabled, personaName }: ChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [voiceState, setVoiceState] = useState<VoiceState>('idle');
 
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 160)}px`;
+      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 128)}px`;
     }
   }, [input]);
 
@@ -33,46 +35,49 @@ export function ChatInput({ input, setInput, onSubmit, isLoading, disabled }: Ch
 
   const isRecordingOrTranscribing = voiceState !== 'idle';
 
+  if (isRecordingOrTranscribing) {
+    return (
+      <form onSubmit={onSubmit} className="mx-auto max-w-2xl w-full">
+        <div className="rounded-xl border border-border bg-secondary px-3 py-2">
+          <VoiceRecorder
+            onTranscription={(text) => setInput(input ? `${input} ${text}` : text)}
+            onStateChange={setVoiceState}
+            disabled={isLoading || disabled}
+          />
+        </div>
+      </form>
+    );
+  }
+
   return (
-    <form onSubmit={onSubmit} className="max-w-2xl mx-auto w-full">
-      {isRecordingOrTranscribing ? (
-        <div className="bg-[var(--surface-elevated)] border border-[var(--border)] rounded-2xl px-3 py-2 shadow-[var(--shadow-sm)]">
-          <VoiceRecorder
-            onTranscription={(text) => setInput(input ? `${input} ${text}` : text)}
-            onStateChange={setVoiceState}
-            disabled={isLoading || disabled}
-          />
-        </div>
-      ) : (
-        <div className="flex flex-col items-center gap-2">
-          <VoiceRecorder
-            onTranscription={(text) => setInput(input ? `${input} ${text}` : text)}
-            onStateChange={setVoiceState}
-            disabled={isLoading || disabled}
-          />
-          <div className="flex items-end gap-2 w-full bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-2xl px-4 py-3 shadow-[0_-1px_3px_rgba(26,22,18,0.04)] focus-within:ring-2 focus-within:ring-[var(--accent)]/30 focus-within:border-[var(--accent)]/40 transition-all">
-            <textarea
-              ref={textareaRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Ask anything..."
-              disabled={isLoading || disabled}
-              rows={1}
-              className="flex-1 bg-transparent text-[var(--text-primary)] text-sm resize-none focus:outline-none placeholder:text-[var(--text-tertiary)] disabled:opacity-50 min-h-[24px] max-h-[160px]"
-            />
-            <button
-              type="submit"
-              disabled={!input.trim() || isLoading || disabled}
-              className="p-2 rounded-xl bg-[var(--accent)] text-white transition-all hover:bg-[var(--accent-hover)] disabled:opacity-20 disabled:cursor-not-allowed min-w-[40px] min-h-[40px] flex items-center justify-center active:scale-95"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
+    <form onSubmit={onSubmit} className="mx-auto max-w-2xl w-full">
+      <div className="flex items-end gap-2">
+        <VoiceRecorder
+          onTranscription={(text) => setInput(input ? `${input} ${text}` : text)}
+          onStateChange={setVoiceState}
+          disabled={isLoading || disabled}
+        />
+
+        <textarea
+          ref={textareaRef}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={personaName ? `Ask ${personaName} anything...` : 'Ask anything...'}
+          disabled={isLoading || disabled}
+          rows={1}
+          className="max-h-32 min-h-[44px] flex-1 resize-none rounded-xl border border-border bg-secondary px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:outline-none focus:ring-1 focus:ring-primary/30"
+        />
+
+        <button
+          type="submit"
+          disabled={!input.trim() || isLoading || disabled}
+          className="flex-shrink-0 rounded-full bg-primary p-3 text-primary-foreground transition-opacity disabled:opacity-30"
+          aria-label="Send message"
+        >
+          <Send className="h-5 w-5" />
+        </button>
+      </div>
     </form>
   );
 }

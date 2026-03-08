@@ -51,8 +51,8 @@ export function InviteForm({ onCreated }: InviteFormProps) {
   };
 
   return (
-    <div className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl p-6 shadow-[var(--shadow-sm)]">
-      <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>Create Invite</h3>
+    <div className="rounded-xl border border-border bg-card p-6">
+      <h3 className="mb-4 font-display text-lg font-semibold text-foreground">Create Invite</h3>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
@@ -64,17 +64,17 @@ export function InviteForm({ onCreated }: InviteFormProps) {
         />
 
         <div>
-          <label className="text-sm text-[var(--text-secondary)] mb-1.5 block">Token budget</label>
-          <div className="flex gap-2 mb-2">
+          <label className="mb-1.5 block text-sm text-muted-foreground">Token budget</label>
+          <div className="mb-2 flex gap-2">
             {BUDGET_PRESETS.map((preset) => (
               <button
                 key={preset.value}
                 type="button"
                 onClick={() => setTokenBudget(preset.value)}
-                className={`px-3 py-1.5 text-xs rounded-lg border transition-colors ${
+                className={`rounded-lg border px-3 py-1.5 text-xs transition-colors ${
                   tokenBudget === preset.value
-                    ? 'border-[var(--accent)] bg-[var(--accent-light)] text-[var(--accent)] font-medium'
-                    : 'border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--text-tertiary)]'
+                    ? 'border-primary bg-primary/10 font-medium text-primary'
+                    : 'border-border text-muted-foreground hover:border-primary/40 hover:text-foreground'
                 }`}
               >
                 {preset.label}
@@ -89,7 +89,7 @@ export function InviteForm({ onCreated }: InviteFormProps) {
           />
         </div>
 
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+        {error && <p className="text-sm text-destructive">{error}</p>}
 
         <Button type="submit" disabled={isSubmitting || !userName.trim()}>
           {isSubmitting ? 'Creating...' : 'Create Invite'}
@@ -97,10 +97,10 @@ export function InviteForm({ onCreated }: InviteFormProps) {
       </form>
 
       {inviteUrl && (
-        <div className="mt-4 p-3 bg-[var(--surface)] border border-[var(--border)] rounded-lg">
-          <p className="text-xs text-[var(--text-secondary)] mb-1">Invite link created:</p>
+        <div className="mt-4 rounded-lg border border-border bg-secondary p-3">
+          <p className="mb-1 text-xs text-muted-foreground">Invite link created:</p>
           <div className="flex items-center gap-2">
-            <code className="text-sm text-[var(--accent)] break-all flex-1">{inviteUrl}</code>
+            <code className="flex-1 break-all text-sm text-primary">{inviteUrl}</code>
             <Button
               variant="ghost"
               size="sm"

@@ -24,7 +24,7 @@ export function InviteTable({ invites, onDeactivate }: InviteTableProps) {
 
   if (invites.length === 0) {
     return (
-      <div className="text-center text-[var(--text-secondary)] py-12 text-sm">
+      <div className="py-12 text-center text-sm text-muted-foreground">
         No invites yet. Create one above.
       </div>
     );
@@ -39,19 +39,19 @@ export function InviteTable({ invites, onDeactivate }: InviteTableProps) {
         return (
           <div
             key={invite.id}
-            className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl overflow-hidden shadow-[var(--shadow-sm)]"
+            className="overflow-hidden rounded-xl border border-border bg-card"
           >
             <div className="p-4">
-              <div className="flex items-center justify-between mb-3">
+              <div className="mb-3 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-[var(--text-primary)]">
+                  <span className="text-sm font-medium text-foreground">
                     {invite.user_name}
                   </span>
                   <span
-                    className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                    className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                       invite.is_active
-                        ? 'bg-green-50 text-green-700'
-                        : 'bg-red-50 text-red-700'
+                        ? 'bg-green-500/10 text-green-400'
+                        : 'bg-destructive/10 text-destructive'
                     }`}
                   >
                     {invite.is_active ? 'Active' : 'Inactive'}
@@ -81,26 +81,26 @@ export function InviteTable({ invites, onDeactivate }: InviteTableProps) {
               </div>
 
               {/* Progress bar */}
-              <div className="flex items-center gap-3 mb-2">
-                <div className="flex-1 h-2 bg-[var(--surface)] rounded-full overflow-hidden">
+              <div className="mb-2 flex items-center gap-3">
+                <div className="h-2 flex-1 overflow-hidden rounded-full bg-secondary">
                   <div
-                    className="h-full bg-[var(--accent)] rounded-full transition-all duration-300"
+                    className="h-full rounded-full bg-primary transition-all duration-300"
                     style={{ width: `${usagePercent}%` }}
                   />
                 </div>
-                <span className="text-xs text-[var(--text-secondary)] whitespace-nowrap">
+                <span className="whitespace-nowrap text-xs text-muted-foreground">
                   {formatTokens(invite.tokens_used)} / {formatTokens(invite.token_budget)}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-xs text-[var(--text-secondary)]">
+                <span className="text-xs text-muted-foreground">
                   Created {new Date(invite.created_at).toLocaleDateString()}
                 </span>
                 {invite.breakdown.length > 0 && (
                   <button
                     onClick={() => setExpandedId(isExpanded ? null : invite.id)}
-                    className="text-xs text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors"
+                    className="text-xs text-primary transition-colors hover:text-primary/80"
                   >
                     {isExpanded ? 'Hide details' : 'Show details'}
                   </button>
@@ -110,19 +110,19 @@ export function InviteTable({ invites, onDeactivate }: InviteTableProps) {
 
             {/* Expanded breakdown */}
             {isExpanded && invite.breakdown.length > 0 && (
-              <div className="border-t border-[var(--border-subtle)] px-4 py-3 bg-[var(--surface)]">
+              <div className="border-t border-border bg-secondary px-4 py-3">
                 <table className="w-full text-xs">
                   <thead>
-                    <tr className="text-[var(--text-secondary)]">
-                      <th className="text-left pb-2">Persona</th>
-                      <th className="text-right pb-2">Input</th>
-                      <th className="text-right pb-2">Output</th>
-                      <th className="text-right pb-2">Calls</th>
+                    <tr className="text-muted-foreground">
+                      <th className="pb-2 text-left">Persona</th>
+                      <th className="pb-2 text-right">Input</th>
+                      <th className="pb-2 text-right">Output</th>
+                      <th className="pb-2 text-right">Calls</th>
                     </tr>
                   </thead>
                   <tbody>
                     {invite.breakdown.map((row) => (
-                      <tr key={row.persona_slug} className="text-[var(--text-primary)]">
+                      <tr key={row.persona_slug} className="text-foreground">
                         <td className="py-1">{row.persona_slug}</td>
                         <td className="py-1 text-right">{formatTokens(row.total_input)}</td>
                         <td className="py-1 text-right">{formatTokens(row.total_output)}</td>

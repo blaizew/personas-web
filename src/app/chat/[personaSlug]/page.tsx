@@ -3,30 +3,31 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { ArrowLeft } from 'lucide-react';
 import { ChatContainer } from '@/components/chat/ChatContainer';
 
-const personaData: Record<string, { name: string; portrait: string }> = {
-  'jeff-bezos': { name: 'Jeff Bezos', portrait: '/portraits/jeff-bezos.webp' },
-  'jeff-bezos-conversational': { name: 'Jeff Bezos (Conversational)', portrait: '/portraits/jeff-bezos-conversational.webp' },
-  'esther-perel': { name: 'Esther Perel', portrait: '/portraits/esther-perel.webp' },
-  'paul-graham': { name: 'Paul Graham', portrait: '/portraits/paul-graham.webp' },
-  'matt-mochary': { name: 'Matt Mochary', portrait: '/portraits/matt-mochary.webp' },
-  'chris-camillo': { name: 'Chris Camillo', portrait: '/portraits/chris-camillo.webp' },
-  'stanley-druckenmiller': { name: 'Stanley Druckenmiller', portrait: '/portraits/stanley-druckenmiller.webp' },
-  'jerry-colonna': { name: 'Jerry Colonna', portrait: '/portraits/jerry-colonna.webp' },
+const personaData: Record<string, { name: string; title: string; portrait: string }> = {
+  'jeff-bezos': { name: 'Jeff Bezos', title: 'Founder of Amazon', portrait: '/portraits/jeff-bezos.webp' },
+  'jeff-bezos-conversational': { name: 'Jeff Bezos (Conversational)', title: 'Founder of Amazon', portrait: '/portraits/jeff-bezos-conversational.webp' },
+  'esther-perel': { name: 'Esther Perel', title: 'Psychotherapist & Author', portrait: '/portraits/esther-perel.webp' },
+  'paul-graham': { name: 'Paul Graham', title: 'Co-founder of Y Combinator', portrait: '/portraits/paul-graham.webp' },
+  'matt-mochary': { name: 'Matt Mochary', title: 'CEO Coach & Author', portrait: '/portraits/matt-mochary.webp' },
+  'chris-camillo': { name: 'Chris Camillo', title: 'Investor & Author', portrait: '/portraits/chris-camillo.webp' },
+  'stanley-druckenmiller': { name: 'Stanley Druckenmiller', title: 'Macro Investor', portrait: '/portraits/stanley-druckenmiller.webp' },
+  'jerry-colonna': { name: 'Jerry Colonna', title: 'CEO Coach & Author', portrait: '/portraits/jerry-colonna.webp' },
 };
 
 function PersonaHeaderAvatar({ name, portrait }: { name: string; portrait: string }) {
   const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2);
 
   return (
-    <div className="w-9 h-9 rounded-lg bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-xs font-semibold flex-shrink-0 overflow-hidden shadow-[var(--shadow-sm)]" style={{ aspectRatio: '1' }}>
+    <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-primary/30">
       <Image
         src={portrait}
         alt={name}
-        width={36}
-        height={36}
-        className="w-full h-full object-cover"
+        width={40}
+        height={40}
+        className="h-full w-full object-cover"
         onError={(e) => {
           const target = e.currentTarget;
           target.style.display = 'none';
@@ -74,25 +75,24 @@ export default function ChatPage() {
   if (!persona) return null;
 
   return (
-    <div className="h-screen flex flex-col bg-[var(--bg)]">
-      <header className="bg-[var(--bg)]/80 backdrop-blur-sm border-b border-[var(--border-subtle)] px-4 sm:px-6 py-3 flex-shrink-0">
-        <div className="max-w-3xl mx-auto flex items-center gap-3">
-          <button
-            onClick={() => router.push('/')}
-            className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors p-1.5 -ml-1.5 rounded-lg hover:bg-[var(--surface)]"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <PersonaHeaderAvatar name={persona.name} portrait={persona.portrait} />
-          <div>
-            <h1 className="text-sm font-semibold text-[var(--text-primary)] leading-tight" style={{ fontFamily: 'var(--font-display)' }}>{persona.name}</h1>
-          </div>
+    <div className="flex h-screen flex-col bg-background">
+      <header className="flex items-center gap-4 border-b border-border px-4 py-3 md:px-6">
+        <button
+          onClick={() => router.push('/')}
+          className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+        <PersonaHeaderAvatar name={persona.name} portrait={persona.portrait} />
+        <div className="min-w-0">
+          <h2 className="truncate font-display text-lg font-semibold text-foreground">
+            {persona.name}
+          </h2>
+          <p className="truncate text-xs text-muted-foreground">{persona.title}</p>
         </div>
       </header>
 
-      <main className="flex-1 max-w-3xl mx-auto w-full overflow-hidden">
+      <main className="flex-1 overflow-hidden">
         <ChatContainer
           personaSlug={slug}
           personaName={persona.name}

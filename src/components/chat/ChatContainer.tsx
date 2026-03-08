@@ -21,20 +21,20 @@ function EmptyStateAvatar({ name, portrait }: { name: string; portrait?: string 
 
   if (portrait) {
     return (
-      <div className="shadow-[var(--shadow-md)] rounded-xl overflow-hidden">
+      <div className="overflow-hidden rounded-full ring-2 ring-primary/30">
         <Image
           src={portrait}
           alt={name}
-          width={100}
-          height={132}
-          className="w-[100px] h-[132px] object-cover"
+          width={80}
+          height={80}
+          className="h-20 w-20 object-cover"
         />
       </div>
     );
   }
 
   return (
-    <div className="w-[100px] h-[132px] rounded-xl bg-gradient-to-br from-[var(--accent-light)] to-[var(--accent-surface)] text-[var(--accent)] flex items-center justify-center text-2xl font-semibold shadow-[var(--shadow-md)]">
+    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-secondary text-2xl font-semibold text-primary ring-2 ring-primary/30">
       {initials}
     </div>
   );
@@ -58,56 +58,58 @@ export function ChatContainer({ personaSlug, personaName, personaPortrait, budge
   const budgetExceeded = error?.message?.includes('402') || budgetRemaining <= 0;
 
   return (
-    <div className="flex flex-col h-[calc(100vh-56px)]">
+    <div className="flex h-full flex-col">
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 space-y-5">
-        {messages.length === 0 && (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center">
-              <div className="flex justify-center mb-5">
-                <EmptyStateAvatar name={personaName} portrait={personaPortrait} />
+      <div className="flex-1 overflow-y-auto px-4 py-6 md:px-6">
+        <div className="mx-auto max-w-2xl space-y-4">
+          {messages.length === 0 && (
+            <div className="flex h-full items-center justify-center pt-24">
+              <div className="text-center">
+                <div className="mb-5 flex justify-center">
+                  <EmptyStateAvatar name={personaName} portrait={personaPortrait} />
+                </div>
+                <h2 className="mb-1.5 font-display text-xl font-semibold text-foreground">
+                  {personaName}
+                </h2>
+                <p className="mb-8 text-sm text-muted-foreground">
+                  Start a conversation. Ask anything.
+                </p>
+                <button
+                  onClick={() => setInput("What should I ask you about?")}
+                  className="rounded-full border border-border px-5 py-2.5 text-sm text-muted-foreground transition-all duration-200 hover:border-primary hover:bg-secondary hover:text-primary"
+                >
+                  What should I ask you about?
+                </button>
               </div>
-              <h2 className="text-xl font-semibold text-[var(--text-primary)] mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
-                {personaName}
-              </h2>
-              <p className="text-[var(--text-secondary)] text-sm mb-8">
-                Start a conversation. Ask anything.
-              </p>
-              <button
-                onClick={() => setInput("What should I ask you about?")}
-                className="text-sm px-5 py-2.5 rounded-full border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--accent)] hover:border-[var(--accent)] hover:bg-[var(--accent-light)] transition-all duration-200"
-              >
-                What should I ask you about?
-              </button>
             </div>
-          </div>
-        )}
+          )}
 
-        {messages.map((message) => (
-          <MessageBubble
-            key={message.id}
-            role={message.role as 'user' | 'assistant'}
-            content={message.content}
-            personaName={message.role === 'assistant' ? personaName : undefined}
-            personaPortrait={message.role === 'assistant' ? personaPortrait : undefined}
-          />
-        ))}
+          {messages.map((message) => (
+            <MessageBubble
+              key={message.id}
+              role={message.role as 'user' | 'assistant'}
+              content={message.content}
+              personaName={message.role === 'assistant' ? personaName : undefined}
+              personaPortrait={message.role === 'assistant' ? personaPortrait : undefined}
+            />
+          ))}
 
-        {isLoading && messages[messages.length - 1]?.role === 'user' && (
-          <TypingIndicator personaName={personaName} personaPortrait={personaPortrait} />
-        )}
+          {isLoading && messages[messages.length - 1]?.role === 'user' && (
+            <TypingIndicator personaName={personaName} personaPortrait={personaPortrait} />
+          )}
 
-        {error && !budgetExceeded && (
-          <div className="max-w-2xl mx-auto bg-red-50/80 border border-red-200 rounded-xl px-4 py-3 text-center animate-fade-slide-in">
-            <p className="text-red-600 text-sm">Something went wrong. Please try again.</p>
-          </div>
-        )}
+          {error && !budgetExceeded && (
+            <div className="mx-auto max-w-2xl animate-fade-slide-in rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-center">
+              <p className="text-sm text-destructive">Something went wrong. Please try again.</p>
+            </div>
+          )}
 
-        <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} />
+        </div>
       </div>
 
       {/* Budget + Input */}
-      <div className="px-4 sm:px-6 pb-3 space-y-2" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}>
+      <div className="space-y-2 border-t border-border px-4 py-3 md:px-6" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}>
         <BudgetWarning
           remaining={budgetRemaining}
           total={budgetTotal}
@@ -118,6 +120,7 @@ export function ChatContainer({ personaSlug, personaName, personaPortrait, budge
           onSubmit={handleSubmit}
           isLoading={isLoading}
           disabled={budgetExceeded}
+          personaName={personaName}
         />
       </div>
     </div>

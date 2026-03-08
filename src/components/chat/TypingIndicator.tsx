@@ -12,20 +12,20 @@ function PersonaAvatar({ name, portrait }: { name: string; portrait?: string }) 
 
   if (portrait) {
     return (
-      <div className="flex-shrink-0 shadow-[var(--shadow-sm)] rounded-lg overflow-hidden">
+      <div className="flex-shrink-0 overflow-hidden rounded-full ring-1 ring-border">
         <Image
           src={portrait}
           alt={name}
           width={32}
           height={32}
-          className="w-8 h-8 object-cover"
+          className="h-8 w-8 object-cover"
         />
       </div>
     );
   }
 
   return (
-    <div className="w-8 h-8 rounded-lg bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-xs font-semibold flex-shrink-0">
+    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-secondary text-xs font-semibold text-primary">
       {initials}
     </div>
   );
@@ -33,17 +33,17 @@ function PersonaAvatar({ name, portrait }: { name: string; portrait?: string }) 
 
 export function TypingIndicator({ personaName, personaPortrait }: TypingIndicatorProps) {
   return (
-    <div className="max-w-2xl mx-auto animate-fade-slide-in">
+    <div className="flex justify-start animate-fade-slide-in">
       <div className="flex items-start gap-3">
         {personaName && (
           <div className="mt-0.5">
             <PersonaAvatar name={personaName} portrait={personaPortrait} />
           </div>
         )}
-        <div className="flex gap-1.5 items-center py-2.5">
-          <span className="w-1.5 h-1.5 bg-[var(--text-tertiary)] rounded-full" style={{ animation: 'pulse 1.4s ease-in-out infinite' }} />
-          <span className="w-1.5 h-1.5 bg-[var(--text-tertiary)] rounded-full" style={{ animation: 'pulse 1.4s ease-in-out 0.2s infinite' }} />
-          <span className="w-1.5 h-1.5 bg-[var(--text-tertiary)] rounded-full" style={{ animation: 'pulse 1.4s ease-in-out 0.4s infinite' }} />
+        <div className="flex items-center gap-1.5 rounded-2xl bg-secondary px-4 py-3">
+          <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground" style={{ animation: 'pulse 1.4s ease-in-out infinite' }} />
+          <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground" style={{ animation: 'pulse 1.4s ease-in-out 0.2s infinite' }} />
+          <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground" style={{ animation: 'pulse 1.4s ease-in-out 0.4s infinite' }} />
         </div>
       </div>
     </div>
