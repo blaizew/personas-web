@@ -71,10 +71,16 @@ export default function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--bg)]">
-        <form onSubmit={handleLogin} className="w-full max-w-sm px-4 space-y-4">
-          <div className="bg-[var(--surface-elevated)] rounded-xl p-8 shadow-[var(--shadow-md)] border border-[var(--border)]">
-            <h1 className="text-2xl font-medium text-[var(--text-primary)] text-center mb-6" style={{ fontFamily: 'var(--font-display)' }}>Admin</h1>
+      <div className="min-h-screen flex items-center justify-center px-5">
+        <form onSubmit={handleLogin} className="w-full max-w-sm">
+          <div className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] backdrop-blur-xl p-7 shadow-[var(--shadow-md)]">
+            <p className="inline-flex items-center rounded-full bg-[var(--accent-light)] px-3 py-1 text-[11px] font-semibold tracking-[0.1em] text-[var(--accent)] uppercase mb-4">
+              Secure Access
+            </p>
+            <h1 className="text-3xl font-semibold text-[var(--text-primary)] mb-5" style={{ fontFamily: 'var(--font-display)' }}>
+              Admin
+            </h1>
+
             <div className="space-y-4">
               <Input
                 type="password"
@@ -83,7 +89,7 @@ export default function AdminPage() {
                 placeholder="Password"
                 autoFocus
               />
-              {loginError && <p className="text-red-600 text-sm text-center">{loginError}</p>}
+              {loginError && <p className="text-[var(--danger-text)] text-sm text-center">{loginError}</p>}
               <Button type="submit" className="w-full">Sign in</Button>
             </div>
           </div>
@@ -93,40 +99,41 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
-      <header className="border-b border-[var(--border-subtle)] bg-[var(--bg)]/80 backdrop-blur-sm px-6 py-4">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-lg font-semibold text-[var(--text-primary)]" style={{ fontFamily: 'var(--font-display)' }}>Admin Dashboard</h1>
+    <div className="min-h-screen pb-10">
+      <header className="sticky top-0 z-20 border-b border-[var(--border-subtle)] bg-white/62 backdrop-blur-xl">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-4">
+          <h1 className="text-lg sm:text-xl font-semibold tracking-tight text-[var(--text-primary)]" style={{ fontFamily: 'var(--font-display)' }}>
+            Admin Dashboard
+          </h1>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-8 space-y-8">
-        {/* Stats */}
+      <main className="max-w-5xl mx-auto px-5 sm:px-8 py-7 space-y-8">
         {stats && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
-              <p className="text-xs text-[var(--text-secondary)] mb-1">Total Tokens</p>
-              <p className="text-2xl font-bold text-[var(--text-primary)]">{formatTokens(stats.total_tokens)}</p>
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] backdrop-blur-xl p-5 shadow-[var(--shadow-sm)]">
+              <p className="text-xs uppercase tracking-[0.08em] text-[var(--text-tertiary)] mb-2">Total Tokens</p>
+              <p className="text-3xl font-semibold text-[var(--text-primary)]" style={{ fontFamily: 'var(--font-display)' }}>{formatTokens(stats.total_tokens)}</p>
             </div>
-            <div className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
-              <p className="text-xs text-[var(--text-secondary)] mb-1">Active Invites</p>
-              <p className="text-2xl font-bold text-[var(--text-primary)]">{formatTokens(stats.active_invites)}</p>
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] backdrop-blur-xl p-5 shadow-[var(--shadow-sm)]">
+              <p className="text-xs uppercase tracking-[0.08em] text-[var(--text-tertiary)] mb-2">Active Invites</p>
+              <p className="text-3xl font-semibold text-[var(--text-primary)]" style={{ fontFamily: 'var(--font-display)' }}>{formatTokens(stats.active_invites)}</p>
             </div>
-            <div className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
-              <p className="text-xs text-[var(--text-secondary)] mb-1">Est. API Cost</p>
-              <p className="text-2xl font-bold text-[var(--text-primary)]">${stats.estimated_cost}</p>
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] backdrop-blur-xl p-5 shadow-[var(--shadow-sm)]">
+              <p className="text-xs uppercase tracking-[0.08em] text-[var(--text-tertiary)] mb-2">Est. API Cost</p>
+              <p className="text-3xl font-semibold text-[var(--text-primary)]" style={{ fontFamily: 'var(--font-display)' }}>${stats.estimated_cost}</p>
             </div>
           </div>
         )}
 
-        {/* Create invite */}
         <InviteForm onCreated={fetchData} />
 
-        {/* Invite list */}
-        <div>
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>Invites</h3>
+        <section>
+          <h2 className="text-xl font-semibold text-[var(--text-primary)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+            Invite List
+          </h2>
           <InviteTable invites={invites} onDeactivate={handleDeactivate} />
-        </div>
+        </section>
       </main>
     </div>
   );

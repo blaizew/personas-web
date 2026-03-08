@@ -17,24 +17,24 @@ interface ChatContainerProps {
 }
 
 function EmptyStateAvatar({ name, portrait }: { name: string; portrait?: string }) {
-  const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2);
+  const initials = name.split(' ').map((w) => w[0]).join('').slice(0, 2);
 
   if (portrait) {
     return (
-      <div className="shadow-[var(--shadow-md)] rounded-xl overflow-hidden">
+      <div className="rounded-2xl overflow-hidden border border-[var(--border)] shadow-[var(--shadow-md)] bg-white">
         <Image
           src={portrait}
           alt={name}
-          width={100}
-          height={132}
-          className="w-[100px] h-[132px] object-cover"
+          width={120}
+          height={156}
+          className="w-[120px] h-[156px] object-cover"
         />
       </div>
     );
   }
 
   return (
-    <div className="w-[100px] h-[132px] rounded-xl bg-gradient-to-br from-[var(--accent-light)] to-[var(--accent-surface)] text-[var(--accent)] flex items-center justify-center text-2xl font-semibold shadow-[var(--shadow-md)]">
+    <div className="w-[120px] h-[156px] rounded-2xl bg-gradient-to-br from-[#dce9ff] via-[#e7f0ff] to-[#f3f8ff] text-[var(--accent)] flex items-center justify-center text-3xl font-semibold border border-[var(--border)] shadow-[var(--shadow-md)]">
       {initials}
     </div>
   );
@@ -58,56 +58,68 @@ export function ChatContainer({ personaSlug, personaName, personaPortrait, budge
   const budgetExceeded = error?.message?.includes('402') || budgetRemaining <= 0;
 
   return (
-    <div className="flex flex-col h-[calc(100vh-56px)]">
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 space-y-5">
-        {messages.length === 0 && (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center">
-              <div className="flex justify-center mb-5">
-                <EmptyStateAvatar name={personaName} portrait={personaPortrait} />
+    <div className="flex flex-col h-full py-3 sm:py-4">
+      <div className="flex-1 min-h-0 rounded-3xl border border-[var(--border)] bg-[var(--surface)] backdrop-blur-xl shadow-[var(--shadow-sm)] overflow-hidden">
+        <div className="h-full overflow-y-auto px-4 sm:px-6 py-6 sm:py-7 space-y-6">
+          {messages.length === 0 && (
+            <div className="h-full min-h-[420px] flex items-center justify-center">
+              <div className="text-center max-w-lg">
+                <div className="flex justify-center mb-5">
+                  <EmptyStateAvatar name={personaName} portrait={personaPortrait} />
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--text-primary)] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                  {personaName}
+                </h2>
+
+                <p className="text-[var(--text-secondary)] text-sm sm:text-base mb-6 leading-relaxed">
+                  Ask for strategy, frameworks, or direct feedback. You can keep it short or go deep.
+                </p>
+
+                <div className="flex flex-wrap justify-center gap-2.5">
+                  {[
+                    'How should I think about my next big decision?',
+                    'Give me a hard critique of my current approach.',
+                    'What is one question I should ask myself right now?',
+                  ].map((prompt) => (
+                    <button
+                      key={prompt}
+                      onClick={() => setInput(prompt)}
+                      className="rounded-full border border-[var(--border)] bg-white/92 px-4 py-2 text-xs sm:text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[#b8c8de] hover:bg-white transition-colors"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <h2 className="text-xl font-semibold text-[var(--text-primary)] mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
-                {personaName}
-              </h2>
-              <p className="text-[var(--text-secondary)] text-sm mb-8">
-                Start a conversation. Ask anything.
-              </p>
-              <button
-                onClick={() => setInput("What should I ask you about?")}
-                className="text-sm px-5 py-2.5 rounded-full border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--accent)] hover:border-[var(--accent)] hover:bg-[var(--accent-light)] transition-all duration-200"
-              >
-                What should I ask you about?
-              </button>
             </div>
-          </div>
-        )}
+          )}
 
-        {messages.map((message) => (
-          <MessageBubble
-            key={message.id}
-            role={message.role as 'user' | 'assistant'}
-            content={message.content}
-            personaName={message.role === 'assistant' ? personaName : undefined}
-            personaPortrait={message.role === 'assistant' ? personaPortrait : undefined}
-          />
-        ))}
+          {messages.map((message) => (
+            <MessageBubble
+              key={message.id}
+              role={message.role as 'user' | 'assistant'}
+              content={message.content}
+              personaName={message.role === 'assistant' ? personaName : undefined}
+              personaPortrait={message.role === 'assistant' ? personaPortrait : undefined}
+            />
+          ))}
 
-        {isLoading && messages[messages.length - 1]?.role === 'user' && (
-          <TypingIndicator personaName={personaName} personaPortrait={personaPortrait} />
-        )}
+          {isLoading && messages[messages.length - 1]?.role === 'user' && (
+            <TypingIndicator personaName={personaName} personaPortrait={personaPortrait} />
+          )}
 
-        {error && !budgetExceeded && (
-          <div className="max-w-2xl mx-auto bg-red-50/80 border border-red-200 rounded-xl px-4 py-3 text-center animate-fade-slide-in">
-            <p className="text-red-600 text-sm">Something went wrong. Please try again.</p>
-          </div>
-        )}
+          {error && !budgetExceeded && (
+            <div className="max-w-3xl mx-auto rounded-2xl border border-red-200 bg-white px-4 py-3 text-center animate-fade-slide-in">
+              <p className="text-[var(--danger-text)] text-sm">Something went wrong. Please try again.</p>
+            </div>
+          )}
 
-        <div ref={messagesEndRef} />
+          <div ref={messagesEndRef} />
+        </div>
       </div>
 
-      {/* Budget + Input */}
-      <div className="px-4 sm:px-6 pb-3 space-y-2" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}>
+      <div className="pt-3 sm:pt-4 space-y-2">
         <BudgetWarning
           remaining={budgetRemaining}
           total={budgetTotal}
