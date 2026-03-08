@@ -14,13 +14,15 @@ function PersonaAvatar({ name, portrait }: { name: string; portrait?: string }) 
 
   if (portrait) {
     return (
-      <Image
-        src={portrait}
-        alt={name}
-        width={32}
-        height={32}
-        className="w-8 h-8 rounded-full object-cover flex-shrink-0"
-      />
+      <div className="flex-shrink-0 ring-2 ring-white shadow-sm rounded-full overflow-hidden">
+        <Image
+          src={portrait}
+          alt={name}
+          width={32}
+          height={32}
+          className="w-8 h-8 object-cover"
+        />
+      </div>
     );
   }
 
@@ -37,7 +39,7 @@ export function MessageBubble({ role, content, personaName, personaPortrait }: M
   if (isUser) {
     return (
       <div className="max-w-2xl mx-auto animate-fade-slide-in">
-        <div className="bg-[var(--surface)] rounded-xl px-4 py-3 text-sm leading-relaxed">
+        <div className="bg-[var(--surface)] rounded-2xl px-4 py-3 text-sm leading-relaxed">
           <div className="whitespace-pre-wrap text-[var(--text-primary)]">{content}</div>
         </div>
       </div>
@@ -48,12 +50,14 @@ export function MessageBubble({ role, content, personaName, personaPortrait }: M
     <div className="max-w-2xl mx-auto animate-fade-slide-in">
       <div className="flex items-start gap-3">
         {personaName && (
-          <PersonaAvatar name={personaName} portrait={personaPortrait} />
+          <div className="mt-0.5">
+            <PersonaAvatar name={personaName} portrait={personaPortrait} />
+          </div>
         )}
         <div className="min-w-0 flex-1">
           {personaName && (
-            <span className="text-xs font-medium text-[var(--text-secondary)] mb-1 block">
-              {personaName}
+            <span className="text-xs font-medium text-[var(--text-tertiary)] mb-1.5 block tracking-wide uppercase">
+              {personaName.split(' ')[0]}
             </span>
           )}
           <div className="prose text-sm whitespace-pre-wrap">{content}</div>

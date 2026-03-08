@@ -20,15 +20,14 @@ function PersonaHeaderAvatar({ name, portrait }: { name: string; portrait: strin
   const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2);
 
   return (
-    <div className="w-7 h-7 rounded-full bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-xs font-semibold flex-shrink-0 overflow-hidden">
+    <div className="w-8 h-8 rounded-full bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-xs font-semibold flex-shrink-0 overflow-hidden ring-2 ring-white shadow-sm">
       <Image
         src={portrait}
         alt={name}
-        width={28}
-        height={28}
+        width={32}
+        height={32}
         className="w-full h-full object-cover"
         onError={(e) => {
-          // Fallback to initials on image load error
           const target = e.currentTarget;
           target.style.display = 'none';
           target.parentElement!.textContent = initials;
@@ -76,22 +75,24 @@ export default function ChatPage() {
 
   return (
     <div className="h-screen flex flex-col bg-white">
-      <header className="border-b border-[var(--border)] bg-white px-6 py-4 flex-shrink-0">
-        <div className="max-w-4xl mx-auto flex items-center gap-3">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-[var(--border-subtle)] px-4 sm:px-6 py-3 flex-shrink-0">
+        <div className="max-w-3xl mx-auto flex items-center gap-3">
           <button
             onClick={() => router.push('/')}
-            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors p-1 -ml-1"
+            className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors p-1.5 -ml-1.5 rounded-lg hover:bg-[var(--surface)]"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <PersonaHeaderAvatar name={persona.name} portrait={persona.portrait} />
-          <h1 className="text-base font-semibold text-[var(--text-primary)]">{persona.name}</h1>
+          <div>
+            <h1 className="text-sm font-semibold text-[var(--text-primary)] leading-tight">{persona.name}</h1>
+          </div>
         </div>
       </header>
 
-      <main className="flex-1 max-w-4xl mx-auto w-full overflow-hidden">
+      <main className="flex-1 max-w-3xl mx-auto w-full overflow-hidden">
         <ChatContainer
           personaSlug={slug}
           personaName={persona.name}

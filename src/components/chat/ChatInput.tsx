@@ -44,13 +44,13 @@ export function ChatInput({ input, setInput, onSubmit, isLoading, disabled }: Ch
           />
         </div>
       ) : (
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-2">
           <VoiceRecorder
             onTranscription={(text) => setInput(input ? `${input} ${text}` : text)}
             onStateChange={setVoiceState}
             disabled={isLoading || disabled}
           />
-          <div className="flex items-end gap-2 w-full bg-white border border-[var(--border)] rounded-2xl px-4 py-3 shadow-[var(--shadow-sm)] focus-within:ring-2 focus-within:ring-[var(--accent)] focus-within:border-transparent transition-shadow">
+          <div className="flex items-end gap-2 w-full bg-white border border-[var(--border-subtle)] rounded-2xl px-4 py-3 shadow-[0_-1px_3px_rgba(0,0,0,0.04)] focus-within:ring-2 focus-within:ring-[var(--accent)]/30 focus-within:border-[var(--accent)]/40 transition-all">
             <textarea
               ref={textareaRef}
               value={input}
@@ -64,10 +64,10 @@ export function ChatInput({ input, setInput, onSubmit, isLoading, disabled }: Ch
             <button
               type="submit"
               disabled={!input.trim() || isLoading || disabled}
-              className="p-2.5 rounded-full bg-[var(--accent)] text-white transition-all hover:bg-[var(--accent-hover)] disabled:opacity-30 disabled:cursor-not-allowed min-w-[44px] min-h-[44px] flex items-center justify-center active:scale-95"
+              className="p-2 rounded-xl bg-[var(--accent)] text-white transition-all hover:bg-[var(--accent-hover)] disabled:opacity-20 disabled:cursor-not-allowed min-w-[40px] min-h-[40px] flex items-center justify-center active:scale-95"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
               </svg>
             </button>
           </div>

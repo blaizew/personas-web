@@ -12,13 +12,15 @@ function PersonaAvatar({ name, portrait }: { name: string; portrait?: string }) 
 
   if (portrait) {
     return (
-      <Image
-        src={portrait}
-        alt={name}
-        width={32}
-        height={32}
-        className="w-8 h-8 rounded-full object-cover flex-shrink-0"
-      />
+      <div className="flex-shrink-0 ring-2 ring-white shadow-sm rounded-full overflow-hidden">
+        <Image
+          src={portrait}
+          alt={name}
+          width={32}
+          height={32}
+          className="w-8 h-8 object-cover"
+        />
+      </div>
     );
   }
 
@@ -34,12 +36,14 @@ export function TypingIndicator({ personaName, personaPortrait }: TypingIndicato
     <div className="max-w-2xl mx-auto animate-fade-slide-in">
       <div className="flex items-start gap-3">
         {personaName && (
-          <PersonaAvatar name={personaName} portrait={personaPortrait} />
+          <div className="mt-0.5">
+            <PersonaAvatar name={personaName} portrait={personaPortrait} />
+          </div>
         )}
-        <div className="flex gap-1.5 items-center py-2">
-          <span className="w-2 h-2 bg-[var(--text-tertiary)] rounded-full" style={{ animation: 'pulse 1.4s ease-in-out infinite' }} />
-          <span className="w-2 h-2 bg-[var(--text-tertiary)] rounded-full" style={{ animation: 'pulse 1.4s ease-in-out 0.2s infinite' }} />
-          <span className="w-2 h-2 bg-[var(--text-tertiary)] rounded-full" style={{ animation: 'pulse 1.4s ease-in-out 0.4s infinite' }} />
+        <div className="flex gap-1.5 items-center py-2.5">
+          <span className="w-1.5 h-1.5 bg-[var(--text-tertiary)] rounded-full" style={{ animation: 'pulse 1.4s ease-in-out infinite' }} />
+          <span className="w-1.5 h-1.5 bg-[var(--text-tertiary)] rounded-full" style={{ animation: 'pulse 1.4s ease-in-out 0.2s infinite' }} />
+          <span className="w-1.5 h-1.5 bg-[var(--text-tertiary)] rounded-full" style={{ animation: 'pulse 1.4s ease-in-out 0.4s infinite' }} />
         </div>
       </div>
     </div>
