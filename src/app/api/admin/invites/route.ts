@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
   }
 
-  const token = randomBytes(32).toString('hex');
+  const token = randomBytes(3).toString('base64url').slice(0, 5);
   const invite = await createInvite(token, userName, tokenBudget);
 
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
