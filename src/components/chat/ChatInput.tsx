@@ -44,31 +44,33 @@ export function ChatInput({ input, setInput, onSubmit, isLoading, disabled }: Ch
           />
         </div>
       ) : (
-        <div className="flex items-end gap-2 bg-white border border-[var(--border)] rounded-2xl px-4 py-3 shadow-[var(--shadow-sm)] focus-within:ring-2 focus-within:ring-[var(--accent)] focus-within:border-transparent transition-shadow">
+        <div className="flex flex-col items-center gap-3">
           <VoiceRecorder
             onTranscription={(text) => setInput(input ? `${input} ${text}` : text)}
             onStateChange={setVoiceState}
             disabled={isLoading || disabled}
           />
-          <textarea
-            ref={textareaRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Ask anything..."
-            disabled={isLoading || disabled}
-            rows={1}
-            className="flex-1 bg-transparent text-[var(--text-primary)] text-sm resize-none focus:outline-none placeholder:text-[var(--text-tertiary)] disabled:opacity-50 min-h-[24px] max-h-[160px]"
-          />
-          <button
-            type="submit"
-            disabled={!input.trim() || isLoading || disabled}
-            className="p-2.5 rounded-full bg-[var(--accent)] text-white transition-all hover:bg-[var(--accent-hover)] disabled:opacity-30 disabled:cursor-not-allowed min-w-[44px] min-h-[44px] flex items-center justify-center active:scale-95"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-            </svg>
-          </button>
+          <div className="flex items-end gap-2 w-full bg-white border border-[var(--border)] rounded-2xl px-4 py-3 shadow-[var(--shadow-sm)] focus-within:ring-2 focus-within:ring-[var(--accent)] focus-within:border-transparent transition-shadow">
+            <textarea
+              ref={textareaRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Ask anything..."
+              disabled={isLoading || disabled}
+              rows={1}
+              className="flex-1 bg-transparent text-[var(--text-primary)] text-sm resize-none focus:outline-none placeholder:text-[var(--text-tertiary)] disabled:opacity-50 min-h-[24px] max-h-[160px]"
+            />
+            <button
+              type="submit"
+              disabled={!input.trim() || isLoading || disabled}
+              className="p-2.5 rounded-full bg-[var(--accent)] text-white transition-all hover:bg-[var(--accent-hover)] disabled:opacity-30 disabled:cursor-not-allowed min-w-[44px] min-h-[44px] flex items-center justify-center active:scale-95"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+              </svg>
+            </button>
+          </div>
         </div>
       )}
     </form>

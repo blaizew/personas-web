@@ -12,7 +12,7 @@ interface PersonaCardProps {
 function PersonaInitials({ name }: { name: string }) {
   const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2);
   return (
-    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-lg sm:text-xl font-semibold flex-shrink-0">
+    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-lg sm:text-xl font-semibold">
       {initials}
     </div>
   );
@@ -25,19 +25,19 @@ export function PersonaCard({ persona, onClick, index = 0 }: PersonaCardProps) {
       className="bg-white border border-[var(--border)] rounded-xl p-5 sm:p-6 text-left transition-all duration-200 hover:shadow-[var(--shadow-md)] hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] shadow-[var(--shadow-sm)] animate-fade-slide-in"
       style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
     >
-      <div className="flex items-start gap-4">
+      <div className="flex flex-col items-center text-center gap-3">
         {persona.portrait ? (
           <Image
             src={persona.portrait}
             alt={persona.name}
-            width={80}
-            height={80}
-            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover flex-shrink-0"
+            width={96}
+            height={96}
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover"
           />
         ) : (
           <PersonaInitials name={persona.name} />
         )}
-        <div className="min-w-0">
+        <div>
           <h3 className="text-base sm:text-lg font-semibold text-[var(--text-primary)] mb-1">
             {persona.name}
           </h3>
