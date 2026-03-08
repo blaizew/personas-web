@@ -15,8 +15,8 @@ export function BudgetWarning({ remaining, total, estimatedMessages }: BudgetWar
 
   if (isExceeded) {
     return (
-      <div className="max-w-4xl mx-auto rounded-xl border border-red-200 bg-white px-4 py-3 text-center shadow-[var(--shadow-sm)]">
-        <p className="text-[var(--danger-text)] text-sm font-medium">
+      <div className="bg-red-50/80 border border-red-200 rounded-lg px-4 py-3 text-center">
+        <p className="text-red-700 text-sm font-medium">
           Budget fully used. Contact Blaize for more access.
         </p>
       </div>
@@ -24,10 +24,10 @@ export function BudgetWarning({ remaining, total, estimatedMessages }: BudgetWar
   }
 
   return (
-    <div className="max-w-4xl mx-auto rounded-xl border border-amber-200 bg-white px-3.5 py-2.5 text-center shadow-[var(--shadow-sm)]">
-      <p className="text-[var(--warning-text)] text-xs sm:text-sm font-medium">
+    <div className="bg-amber-50/80 border border-amber-200 rounded-lg px-3 py-2 text-center">
+      <p className="text-amber-700 text-xs">
         {estimatedMessages != null
-          ? `About ${estimatedMessages} messages remaining`
+          ? `~${estimatedMessages} messages remaining`
           : `Budget running low (${Math.round(percentage)}% remaining)`}
       </p>
     </div>

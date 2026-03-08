@@ -51,32 +51,30 @@ export function InviteForm({ onCreated }: InviteFormProps) {
   };
 
   return (
-    <section className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] backdrop-blur-xl p-6 sm:p-7 shadow-[var(--shadow-sm)]">
-      <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-5" style={{ fontFamily: 'var(--font-display)' }}>
-        Create Invite
-      </h3>
+    <div className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl p-6 shadow-[var(--shadow-sm)]">
+      <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>Create Invite</h3>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
           label="User name"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
-          placeholder="e.g., Taylor"
+          placeholder="e.g., John"
           required
         />
 
         <div>
-          <label className="text-sm font-medium text-[var(--text-secondary)] mb-1.5 block">Token budget</label>
-          <div className="flex flex-wrap gap-2 mb-3">
+          <label className="text-sm text-[var(--text-secondary)] mb-1.5 block">Token budget</label>
+          <div className="flex gap-2 mb-2">
             {BUDGET_PRESETS.map((preset) => (
               <button
                 key={preset.value}
                 type="button"
                 onClick={() => setTokenBudget(preset.value)}
-                className={`px-3 py-1.5 text-xs rounded-full border transition-colors font-semibold ${
+                className={`px-3 py-1.5 text-xs rounded-lg border transition-colors ${
                   tokenBudget === preset.value
-                    ? 'border-[var(--accent)] bg-[var(--accent-light)] text-[var(--accent)]'
-                    : 'border-[var(--border)] bg-white/90 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[#c0cde1]'
+                    ? 'border-[var(--accent)] bg-[var(--accent-light)] text-[var(--accent)] font-medium'
+                    : 'border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--text-tertiary)]'
                 }`}
               >
                 {preset.label}
@@ -91,7 +89,7 @@ export function InviteForm({ onCreated }: InviteFormProps) {
           />
         </div>
 
-        {error && <p className="text-[var(--danger-text)] text-sm">{error}</p>}
+        {error && <p className="text-red-600 text-sm">{error}</p>}
 
         <Button type="submit" disabled={isSubmitting || !userName.trim()}>
           {isSubmitting ? 'Creating...' : 'Create Invite'}
@@ -99,12 +97,12 @@ export function InviteForm({ onCreated }: InviteFormProps) {
       </form>
 
       {inviteUrl && (
-        <div className="mt-5 p-4 bg-white/85 border border-[var(--border)] rounded-2xl">
-          <p className="text-xs uppercase tracking-[0.08em] text-[var(--text-tertiary)] mb-2">Invite link</p>
+        <div className="mt-4 p-3 bg-[var(--surface)] border border-[var(--border)] rounded-lg">
+          <p className="text-xs text-[var(--text-secondary)] mb-1">Invite link created:</p>
           <div className="flex items-center gap-2">
             <code className="text-sm text-[var(--accent)] break-all flex-1">{inviteUrl}</code>
             <Button
-              variant="secondary"
+              variant="ghost"
               size="sm"
               onClick={() => navigator.clipboard.writeText(inviteUrl)}
             >
@@ -113,6 +111,6 @@ export function InviteForm({ onCreated }: InviteFormProps) {
           </div>
         </div>
       )}
-    </section>
+    </div>
   );
 }

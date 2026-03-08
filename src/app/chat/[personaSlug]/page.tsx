@@ -17,15 +17,15 @@ const personaData: Record<string, { name: string; portrait: string }> = {
 };
 
 function PersonaHeaderAvatar({ name, portrait }: { name: string; portrait: string }) {
-  const initials = name.split(' ').map((w) => w[0]).join('').slice(0, 2);
+  const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2);
 
   return (
-    <div className="w-10 h-10 rounded-xl bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-xs font-semibold flex-shrink-0 overflow-hidden border border-[var(--border)]">
+    <div className="w-9 h-9 rounded-lg bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-xs font-semibold flex-shrink-0 overflow-hidden shadow-[var(--shadow-sm)]" style={{ aspectRatio: '1' }}>
       <Image
         src={portrait}
         alt={name}
-        width={40}
-        height={40}
+        width={36}
+        height={36}
         className="w-full h-full object-cover"
         onError={(e) => {
           const target = e.currentTarget;
@@ -74,37 +74,25 @@ export default function ChatPage() {
   if (!persona) return null;
 
   return (
-    <div className="h-screen flex flex-col">
-      <header className="flex-shrink-0 border-b border-[var(--border-subtle)] bg-white/65 backdrop-blur-xl">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
-            <button
-              onClick={() => router.push('/')}
-              className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors rounded-xl border border-[var(--border)] bg-white/75 w-9 h-9 flex items-center justify-center hover:bg-white"
-              aria-label="Back to personas"
-            >
-              <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-
-            <PersonaHeaderAvatar name={persona.name} portrait={persona.portrait} />
-
-            <div className="min-w-0">
-              <h1 className="text-sm sm:text-base font-semibold text-[var(--text-primary)] truncate" style={{ fontFamily: 'var(--font-display)' }}>
-                {persona.name}
-              </h1>
-              <p className="text-xs text-[var(--text-tertiary)]">Advisory chat</p>
-            </div>
+    <div className="h-screen flex flex-col bg-[var(--bg)]">
+      <header className="bg-[var(--bg)]/80 backdrop-blur-sm border-b border-[var(--border-subtle)] px-4 sm:px-6 py-3 flex-shrink-0">
+        <div className="max-w-3xl mx-auto flex items-center gap-3">
+          <button
+            onClick={() => router.push('/')}
+            className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors p-1.5 -ml-1.5 rounded-lg hover:bg-[var(--surface)]"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <PersonaHeaderAvatar name={persona.name} portrait={persona.portrait} />
+          <div>
+            <h1 className="text-sm font-semibold text-[var(--text-primary)] leading-tight" style={{ fontFamily: 'var(--font-display)' }}>{persona.name}</h1>
           </div>
-
-          <span className="hidden sm:inline-flex items-center rounded-full border border-[var(--border)] bg-white/80 px-3 py-1 text-xs text-[var(--text-secondary)]">
-            Session active
-          </span>
         </div>
       </header>
 
-      <main className="flex-1 min-h-0 max-w-5xl mx-auto w-full px-3 sm:px-4">
+      <main className="flex-1 max-w-3xl mx-auto w-full overflow-hidden">
         <ChatContainer
           personaSlug={slug}
           personaName={persona.name}
