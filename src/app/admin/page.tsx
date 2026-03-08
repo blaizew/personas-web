@@ -71,10 +71,10 @@ export default function AdminPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--surface)]">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--bg)]">
         <form onSubmit={handleLogin} className="w-full max-w-sm px-4 space-y-4">
-          <div className="bg-white rounded-xl p-8 shadow-[var(--shadow-md)] border border-[var(--border)]">
-            <h1 className="text-2xl font-bold text-[var(--text-primary)] text-center mb-6">Admin</h1>
+          <div className="bg-[var(--surface-elevated)] rounded-xl p-8 shadow-[var(--shadow-md)] border border-[var(--border)]">
+            <h1 className="text-2xl font-medium text-[var(--text-primary)] text-center mb-6" style={{ fontFamily: 'var(--font-display)' }}>Admin</h1>
             <div className="space-y-4">
               <Input
                 type="password"
@@ -93,10 +93,10 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--surface)]">
-      <header className="border-b border-[var(--border)] bg-white px-6 py-4">
+    <div className="min-h-screen bg-[var(--bg)]">
+      <header className="border-b border-[var(--border-subtle)] bg-[var(--bg)]/80 backdrop-blur-sm px-6 py-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-lg font-semibold text-[var(--text-primary)]">Admin Dashboard</h1>
+          <h1 className="text-lg font-semibold text-[var(--text-primary)]" style={{ fontFamily: 'var(--font-display)' }}>Admin Dashboard</h1>
         </div>
       </header>
 
@@ -104,15 +104,15 @@ export default function AdminPage() {
         {/* Stats */}
         {stats && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-white border border-[var(--border)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
+            <div className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
               <p className="text-xs text-[var(--text-secondary)] mb-1">Total Tokens</p>
               <p className="text-2xl font-bold text-[var(--text-primary)]">{formatTokens(stats.total_tokens)}</p>
             </div>
-            <div className="bg-white border border-[var(--border)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
+            <div className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
               <p className="text-xs text-[var(--text-secondary)] mb-1">Active Invites</p>
-              <p className="text-2xl font-bold text-[var(--text-primary)]">{stats.active_invites}</p>
+              <p className="text-2xl font-bold text-[var(--text-primary)]">{formatTokens(stats.active_invites)}</p>
             </div>
-            <div className="bg-white border border-[var(--border)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
+            <div className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl p-4 shadow-[var(--shadow-sm)]">
               <p className="text-xs text-[var(--text-secondary)] mb-1">Est. API Cost</p>
               <p className="text-2xl font-bold text-[var(--text-primary)]">${stats.estimated_cost}</p>
             </div>
@@ -124,7 +124,7 @@ export default function AdminPage() {
 
         {/* Invite list */}
         <div>
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Invites</h3>
+          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>Invites</h3>
           <InviteTable invites={invites} onDeactivate={handleDeactivate} />
         </div>
       </main>

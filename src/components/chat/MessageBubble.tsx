@@ -14,7 +14,7 @@ function PersonaAvatar({ name, portrait }: { name: string; portrait?: string }) 
 
   if (portrait) {
     return (
-      <div className="flex-shrink-0 ring-2 ring-white shadow-sm rounded-full overflow-hidden">
+      <div className="flex-shrink-0 shadow-[var(--shadow-sm)] rounded-lg overflow-hidden">
         <Image
           src={portrait}
           alt={name}
@@ -27,7 +27,7 @@ function PersonaAvatar({ name, portrait }: { name: string; portrait?: string }) 
   }
 
   return (
-    <div className="w-8 h-8 rounded-full bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-xs font-semibold flex-shrink-0">
+    <div className="w-8 h-8 rounded-lg bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-xs font-semibold flex-shrink-0">
       {initials}
     </div>
   );
@@ -56,7 +56,7 @@ export function MessageBubble({ role, content, personaName, personaPortrait }: M
         )}
         <div className="min-w-0 flex-1">
           {personaName && (
-            <span className="text-xs font-medium text-[var(--text-tertiary)] mb-1.5 block tracking-wide uppercase">
+            <span className="text-[11px] font-medium text-[var(--accent)] mb-1.5 block tracking-[0.1em] uppercase">
               {personaName.split(' ')[0]}
             </span>
           )}

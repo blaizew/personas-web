@@ -20,12 +20,12 @@ function PersonaHeaderAvatar({ name, portrait }: { name: string; portrait: strin
   const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2);
 
   return (
-    <div className="w-8 h-8 rounded-full bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-xs font-semibold flex-shrink-0 overflow-hidden ring-2 ring-white shadow-sm">
+    <div className="w-9 h-9 rounded-lg bg-[var(--accent-light)] text-[var(--accent)] flex items-center justify-center text-xs font-semibold flex-shrink-0 overflow-hidden shadow-[var(--shadow-sm)]" style={{ aspectRatio: '1' }}>
       <Image
         src={portrait}
         alt={name}
-        width={32}
-        height={32}
+        width={36}
+        height={36}
         className="w-full h-full object-cover"
         onError={(e) => {
           const target = e.currentTarget;
@@ -74,8 +74,8 @@ export default function ChatPage() {
   if (!persona) return null;
 
   return (
-    <div className="h-screen flex flex-col bg-white">
-      <header className="bg-white/80 backdrop-blur-sm border-b border-[var(--border-subtle)] px-4 sm:px-6 py-3 flex-shrink-0">
+    <div className="h-screen flex flex-col bg-[var(--bg)]">
+      <header className="bg-[var(--bg)]/80 backdrop-blur-sm border-b border-[var(--border-subtle)] px-4 sm:px-6 py-3 flex-shrink-0">
         <div className="max-w-3xl mx-auto flex items-center gap-3">
           <button
             onClick={() => router.push('/')}
@@ -87,7 +87,7 @@ export default function ChatPage() {
           </button>
           <PersonaHeaderAvatar name={persona.name} portrait={persona.portrait} />
           <div>
-            <h1 className="text-sm font-semibold text-[var(--text-primary)] leading-tight">{persona.name}</h1>
+            <h1 className="text-sm font-semibold text-[var(--text-primary)] leading-tight" style={{ fontFamily: 'var(--font-display)' }}>{persona.name}</h1>
           </div>
         </div>
       </header>

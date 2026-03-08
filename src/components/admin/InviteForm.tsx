@@ -51,8 +51,8 @@ export function InviteForm({ onCreated }: InviteFormProps) {
   };
 
   return (
-    <div className="bg-white border border-[var(--border)] rounded-xl p-6 shadow-[var(--shadow-sm)]">
-      <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">Create Invite</h3>
+    <div className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl p-6 shadow-[var(--shadow-sm)]">
+      <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>Create Invite</h3>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input

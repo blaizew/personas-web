@@ -39,7 +39,7 @@ export function InviteTable({ invites, onDeactivate }: InviteTableProps) {
         return (
           <div
             key={invite.id}
-            className="bg-white border border-[var(--border)] rounded-xl overflow-hidden shadow-[var(--shadow-sm)]"
+            className="bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-xl overflow-hidden shadow-[var(--shadow-sm)]"
           >
             <div className="p-4">
               <div className="flex items-center justify-between mb-3">
@@ -110,7 +110,7 @@ export function InviteTable({ invites, onDeactivate }: InviteTableProps) {
 
             {/* Expanded breakdown */}
             {isExpanded && invite.breakdown.length > 0 && (
-              <div className="border-t border-[var(--border)] px-4 py-3 bg-[var(--surface)]">
+              <div className="border-t border-[var(--border-subtle)] px-4 py-3 bg-[var(--surface)]">
                 <table className="w-full text-xs">
                   <thead>
                     <tr className="text-[var(--text-secondary)]">

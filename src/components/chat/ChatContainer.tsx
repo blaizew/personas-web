@@ -21,20 +21,20 @@ function EmptyStateAvatar({ name, portrait }: { name: string; portrait?: string 
 
   if (portrait) {
     return (
-      <div className="ring-4 ring-white shadow-lg rounded-full overflow-hidden">
+      <div className="shadow-[var(--shadow-md)] rounded-xl overflow-hidden">
         <Image
           src={portrait}
           alt={name}
-          width={96}
-          height={96}
-          className="w-24 h-24 object-cover"
+          width={100}
+          height={132}
+          className="w-[100px] h-[132px] object-cover"
         />
       </div>
     );
   }
 
   return (
-    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[var(--accent-light)] to-[var(--accent-surface)] text-[var(--accent)] flex items-center justify-center text-2xl font-semibold ring-4 ring-white shadow-lg">
+    <div className="w-[100px] h-[132px] rounded-xl bg-gradient-to-br from-[var(--accent-light)] to-[var(--accent-surface)] text-[var(--accent)] flex items-center justify-center text-2xl font-semibold shadow-[var(--shadow-md)]">
       {initials}
     </div>
   );
@@ -67,7 +67,7 @@ export function ChatContainer({ personaSlug, personaName, personaPortrait, budge
               <div className="flex justify-center mb-5">
                 <EmptyStateAvatar name={personaName} portrait={personaPortrait} />
               </div>
-              <h2 className="text-xl font-semibold text-[var(--text-primary)] mb-1.5">
+              <h2 className="text-xl font-semibold text-[var(--text-primary)] mb-1.5" style={{ fontFamily: 'var(--font-display)' }}>
                 {personaName}
               </h2>
               <p className="text-[var(--text-secondary)] text-sm mb-8">
@@ -98,7 +98,7 @@ export function ChatContainer({ personaSlug, personaName, personaPortrait, budge
         )}
 
         {error && !budgetExceeded && (
-          <div className="max-w-2xl mx-auto bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-center animate-fade-slide-in">
+          <div className="max-w-2xl mx-auto bg-red-50/80 border border-red-200 rounded-xl px-4 py-3 text-center animate-fade-slide-in">
             <p className="text-red-600 text-sm">Something went wrong. Please try again.</p>
           </div>
         )}

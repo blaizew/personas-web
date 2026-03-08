@@ -36,7 +36,7 @@ export function ChatInput({ input, setInput, onSubmit, isLoading, disabled }: Ch
   return (
     <form onSubmit={onSubmit} className="max-w-2xl mx-auto w-full">
       {isRecordingOrTranscribing ? (
-        <div className="bg-white border border-[var(--border)] rounded-2xl px-3 py-2 shadow-[var(--shadow-sm)]">
+        <div className="bg-[var(--surface-elevated)] border border-[var(--border)] rounded-2xl px-3 py-2 shadow-[var(--shadow-sm)]">
           <VoiceRecorder
             onTranscription={(text) => setInput(input ? `${input} ${text}` : text)}
             onStateChange={setVoiceState}
@@ -50,7 +50,7 @@ export function ChatInput({ input, setInput, onSubmit, isLoading, disabled }: Ch
             onStateChange={setVoiceState}
             disabled={isLoading || disabled}
           />
-          <div className="flex items-end gap-2 w-full bg-white border border-[var(--border-subtle)] rounded-2xl px-4 py-3 shadow-[0_-1px_3px_rgba(0,0,0,0.04)] focus-within:ring-2 focus-within:ring-[var(--accent)]/30 focus-within:border-[var(--accent)]/40 transition-all">
+          <div className="flex items-end gap-2 w-full bg-[var(--surface-elevated)] border border-[var(--border-subtle)] rounded-2xl px-4 py-3 shadow-[0_-1px_3px_rgba(26,22,18,0.04)] focus-within:ring-2 focus-within:ring-[var(--accent)]/30 focus-within:border-[var(--accent)]/40 transition-all">
             <textarea
               ref={textareaRef}
               value={input}
